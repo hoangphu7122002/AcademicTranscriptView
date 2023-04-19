@@ -1,3 +1,15 @@
+drop table system.course_score;
+drop table system.course;
+drop table system.faculty;
+drop table system.parent;
+drop table system.faculty;
+drop table system.class;
+drop table system.teacher;
+drop table system.subject;
+drop table system.department;
+
+
+
 CREATE TABLE faculty 
 (
     id	VARCHAR(512),
@@ -8,6 +20,7 @@ CREATE TABLE faculty
 INSERT INTO faculty (id, faculty_name, dean) VALUES ('1', 'Applied Science', '11');
 INSERT INTO faculty (id, faculty_name, dean) VALUES ('2', 'Electrical and Electronics Engineering', '9');
 INSERT INTO faculty (id, faculty_name, dean) VALUES ('3', 'Computer Science and Engineering', '3');
+
 
 CREATE TABLE department 
 (
@@ -306,9 +319,9 @@ CREATE TABLE course_score
 (
     course_id	INT,
     student_id	INT,
-    midterm	DOUBLE,
-    final	DOUBLE,
-    score	DOUBLE
+    midterm	    REAL,
+    final	REAL,
+    score	    REAL
 );
 
 INSERT INTO course_score (course_id, student_id, midterm, final, score) VALUES ('1', '4', '2.46', '4.93', '4.19');
