@@ -2,7 +2,7 @@ drop table system.course_score;
 drop table system.course;
 drop table system.faculty;
 drop table system.parent;
-drop table system.faculty;
+drop table system.student;
 drop table system.class;
 drop table system.teacher;
 drop table system.subject;
