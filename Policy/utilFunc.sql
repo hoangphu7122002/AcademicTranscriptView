@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION GET_ID_CLS(
+1CREATE OR REPLACE FUNCTION GET_ID_CLS(
     CLASS_ID IN INT
 )
 RETURN VARCHAR(5)
@@ -58,6 +58,24 @@ BEGIN
     END LOOP;
 END;
     
-
+CREATE OR REPLACE FUNCTION avg_score(GROUP BY
+    student_id INT,
+)
+RETURN REAL
+IS
+    tu_sum REAL := 0;
+    mau_sum REAL := 0;
+BEGIN
+    SELECT cs.score, s.credits INTO res_table
+    FROM atv.course_score cs, atv.course c, atv.subject s
+    WHERE cs.student_id = student_id and c.id = cs.course_id and s.id = c.subject_id
+    FOR rec in (select score, credits from res_table) LOOP 
+        tu_sum := tu_sum + rec.score * rec.credits
+        mau_sum := mau_sum + rec.credits
+    END LOOP;
+    
+    tu_sum := tu_sum / mau_sum;
+    RETURN tu_sum;
+END;
                 
 

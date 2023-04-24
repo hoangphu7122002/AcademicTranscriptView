@@ -1,4 +1,4 @@
-#===========================
+--------------------------------
 CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_levels
@@ -31,7 +31,7 @@ BEGIN
     def_groups => 'CLS10',
     row_groups => 'CLS10');
 END;
-#===========================
+--------------------------------
 
 CONN atv_sec/atvSec;
 BEGIN
@@ -66,7 +66,7 @@ BEGIN
     row_groups => '');
 END;
 
-#===========================
+--------------------------------
 
 CONN atv_sec/atvSec;
 BEGIN
@@ -101,7 +101,7 @@ BEGIN
     row_groups => '');
 END;
 
-#===========================
+--------------------------------
 
 CONN atv_sec/atvSec;
 BEGIN
@@ -136,7 +136,7 @@ BEGIN
     row_groups => 'PDT');
 END;
 
-#===========================
+--------------------------------
 
 CONN atv_sec/atvSec;
 BEGIN
@@ -171,4 +171,20 @@ BEGIN
     row_groups => 'IEF,PE,CL2,PPL');
 END;
 
+--------------------------------
+CREATE OR REPLACE PROCEDURE upgrade_user_level(p_username IN VARCHAR(512))
+IS
+  l_max_level VARCHAR2(512);
+BEGIN
+  -- Get the maximum level defined in the policy
+  SELECT MAX(level_name) INTO l_max_level FROM dba_ols_levels;
+  
+  -- Upgrade the user's security level to the maximum level
+  sa_user_admin.set_levels(p_username, l_max_level);
+END;
 
+upgrade_user_level('TCH10')
+upgrade_user_level('HD5')
+upgrade_user_level('DN3')
+upgrade_user_level('EMP_PDT')
+upgrade_user_level('TCH11')

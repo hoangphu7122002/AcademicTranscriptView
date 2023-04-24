@@ -8,6 +8,19 @@ BEGIN
     RETURN std_id;
 END;
 /
+
+CREATE OR REPLACE FUNCTION get_course_id (
+    std_id VARCHAR2
+)
+RETURN VARCHAR2
+AS
+    res NUMBER;
+BEGIN
+    select id into res from atv.course where subject_id = get_subject_id_from_score(std_id) AND semester_id = 'HK223';
+    return res;
+END;
+/
+
 ------------------------------------------------------------------------------------
 SET SERVEROUTPUT ON
 -- POLICY FUNCTION THAT USE FOR THE FIRST REQUIREMENT
@@ -29,6 +42,9 @@ BEGIN
         dbms_output.put_line('This is a parent');
     elsif prefix = 'LB' then
         dbms_output.put_line('This is LBACSYS');
+    elseif prefix = 'TCH' then:
+        std_id := 'course_id = ' ||  get_course_id(std_id);
+        dbms_output.put_line('This is a teacher');
     else
         std_id := '1=0';
         dbms_output.put_line('This is a no one');
@@ -155,3 +171,26 @@ begin
     return v_concatenated_values;
 end;
 /
+
+create or replace function get_subject_id_from_course(prid varchar2)
+return varchar2
+as
+    v_concatenated_values varchar2(1000);
+begin 
+    select listagg(subject_id, ', ') within group (Order by subject_id) 
+        into v_concatenated_values from atv.course where teacher_id = substr(prid, 3, 2);
+    return v_concatenated_values;
+end;
+/
+
+---------------------------------------------
+--Update policy
+begin 
+    dbms_rls.add_policy
+    (object_schema  => 'atv',
+    object_name     => 'COURSE_SCORE',
+    policy_name     => 'TEACHER_EDIT_SCORE',
+    policy_function => 'stdid',
+    statement_types => 'UPDATE,INSERT',
+    sec_relevant_cols => 'midterm,final,score');
+end;
