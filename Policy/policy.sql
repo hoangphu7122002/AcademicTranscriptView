@@ -1,5 +1,5 @@
 -- EXAMPLE POLICY
-CONN lbacsys/lbacsys;
+CONN lbacsys/p123;
 
 BEGIN
     SA_SYSDBA.CREATE_POLICY (
@@ -25,15 +25,25 @@ EXECUTE sa_components.create_level('MANAGE_SCORE',  10, 'NA', 'NOT_ALLOW');
 EXECUTE sa_components.create_level('MANAGE_SCORE',  20, 'V', 'VIEW');
 EXECUTE sa_components.create_level('MANAGE_SCORE',  30, 'E',' EDIT');
 
-EXECUTE sa_components.create_compartment('MANAGE_SCORE',10,'SM1','SEMESTER_1');
-EXECUTE sa_components.create_compartment('MANAGE_SCORE',20,'SM2','SEMESTER_2');
-EXECUTE sa_components.create_compartment('MANAGE_SCORE',30,'SM3','SEMESTER_3');
-EXECUTE sa_components.create_compartment('MANAGE_SCORE',40,'SM4','SEMESTER_4');
-EXECUTE sa_components.create_compartment('MANAGE_SCORE',50,'SM5','SEMESTER_5');
-EXECUTE sa_components.create_compartment('MANAGE_SCORE',60,'SM6','SEMESTER_6');
-EXECUTE sa_components.create_compartment('MANAGE_SCORE',70,'SM7','SEMESTER_7');
-EXECUTE sa_components.create_compartment('MANAGE_SCORE',80,'SM8','SEMESTER_8');
-EXECUTE sa_components.create_compartment('MANAGE_SCORE',90,'SM9','SEMESTER_9');
+EXECUTE sa_components.alter_compartment('MANAGE_SCORE',10,'HK201','SEMESTER_1');
+EXECUTE sa_components.alter_compartment('MANAGE_SCORE',20,'HK202','SEMESTER_2');
+EXECUTE sa_components.alter_compartment('MANAGE_SCORE',30,'HK203','SEMESTER_3');
+EXECUTE sa_components.alter_compartment('MANAGE_SCORE',40,'HK211','SEMESTER_4');
+EXECUTE sa_components.alter_compartment('MANAGE_SCORE',50,'HK212','SEMESTER_5');
+EXECUTE sa_components.alter_compartment('MANAGE_SCORE',60,'HK213','SEMESTER_6');
+EXECUTE sa_components.alter_compartment('MANAGE_SCORE',70,'HK221','SEMESTER_7');
+EXECUTE sa_components.alter_compartment('MANAGE_SCORE',80,'HK222','SEMESTER_8');
+EXECUTE sa_components.alter_compartment('MANAGE_SCORE',90,'HK223','SEMESTER_9');
+
+--EXECUTE sa_components.create_compartment('MANAGE_SCORE',10,'HK201','SEMESTER_1');
+--EXECUTE sa_components.create_compartment('MANAGE_SCORE',20,'HK202','SEMESTER_2');
+--EXECUTE sa_components.create_compartment('MANAGE_SCORE',30,'HK203','SEMESTER_3');
+--EXECUTE sa_components.create_compartment('MANAGE_SCORE',40,'HK211','SEMESTER_4');
+--EXECUTE sa_components.create_compartment('MANAGE_SCORE',50,'HK212','SEMESTER_5');
+--EXECUTE sa_components.create_compartment('MANAGE_SCORE',60,'HK213','SEMESTER_6');
+--EXECUTE sa_components.create_compartment('MANAGE_SCORE',70,'HK221','SEMESTER_7');
+--EXECUTE sa_components.create_compartment('MANAGE_SCORE',80,'HK222','SEMESTER_8');
+--EXECUTE sa_components.create_compartment('MANAGE_SCORE',90,'HK223','SEMESTER_9');
 
 EXECUTE sa_components.create_group('MANAGE_SCORE',1000,'BK','BACH_KHOA', NULL);
 EXECUTE sa_components.create_group('MANAGE_SCORE',2000,'PDT','PHONG_DAO_TAO','BK');

@@ -23,7 +23,7 @@ GRANT connect, create session TO head_dept;
 CREATE ROLE dean; -- 3
 GRANT connect, create session TO dean;
 
-CREATE USER emp_pdt; -- 1
+CREATE USER emp_pdt IDENTIFIED BY p123; -- 1
 GRANT connect, create session TO emp_pdt;
 
 -- CREATE and GRANT ROLE to usersGRANT student TO std1 IDENTIFIED BY p123;
