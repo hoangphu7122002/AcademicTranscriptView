@@ -1,0 +1,174 @@
+#===========================
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_levels
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'TCH10',
+    max_level => 'V',
+    min_level => 'NA',
+    def_level => 'V',
+    row_level => 'V');
+END;
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_compartments
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'TCH10',
+    read_comps => 'HK223',
+    write_comps => '',
+    def_comps => 'HK223',
+    row_comps => 'SM');
+END;
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_groups
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'TCH10',
+    read_groups => 'CLS10',
+    write_groups => 'CLS10',
+    def_groups => 'CLS10',
+    row_groups => 'CLS10');
+END;
+#===========================
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_levels
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'HD5',
+    max_level => 'V',
+    min_level => 'NA',
+    def_level => 'V',
+    row_level => 'V');
+END;
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_compartments
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'HD5',
+    read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+    write_comps => '',
+    def_comps => 'HK223',
+    row_comps => '');
+END;
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_groups
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'HD5',
+    read_groups => 'CS',
+    write_groups => '',
+    def_groups => 'CS',
+    row_groups => '');
+END;
+
+#===========================
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_levels
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'DN3',
+    max_level => 'V',
+    min_level => 'NA',
+    def_level => 'V',
+    row_level => 'V');
+END;
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_compartments
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'DN3',
+    read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+    write_comps => '',
+    def_comps => 'HK223',
+    row_comps => '');
+END;
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_groups
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'DN3',
+    read_groups => 'CSE',
+    write_groups => '',
+    def_groups => 'CSE',
+    row_groups => '');
+END;
+
+#===========================
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_levels
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'EMP_PDT',
+    max_level => 'E',
+    min_level => 'V',
+    def_level => 'V',
+    row_level => 'V');
+END;
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_compartments
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'EMP_PDT',
+    read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+    write_comps => 'HK222,HK223',
+    def_comps => 'HK222,HK223',
+    row_comps => 'HK222,HK223');
+END;
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_groups
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'EMP_PDT',
+    read_groups => 'PDT',
+    write_groups => 'PDT',
+    def_groups => 'PDT',
+    row_groups => 'PDT');
+END;
+
+#===========================
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_levels
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'TCH11',
+    max_level => 'E',
+    min_level => 'V',
+    def_level => 'V',
+    row_level => 'V');
+END;
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_compartments
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'TCH11',
+    read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+    write_comps => 'HK223',
+    def_comps => 'HK223',
+    row_comps => 'HK223');
+END;
+
+CONN atv_sec/atvSec;
+BEGIN
+    sa_user_admin.set_groups
+    (policy_name => 'MANAGE_SCORE', 
+    user_name => 'TCH11',
+    read_groups => 'IEF,PE,CL2,ENM,PML,PPL',
+    write_groups => 'IEF,PE,CL2,PPL',
+    def_groups => 'IEF,PE,CL2,PPL',
+    row_groups => 'IEF,PE,CL2,PPL');
+END;
+
+
