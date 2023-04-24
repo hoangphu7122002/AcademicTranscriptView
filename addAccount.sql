@@ -27,6 +27,7 @@ CREATE USER emp_pdt; -- 1
 GRANT connect, create session TO emp_pdt;
 
 -- CREATE and GRANT ROLE to usersGRANT student TO std1 IDENTIFIED BY p123;
+GRANT student TO std1 IDENTIFIED BY p123;
 GRANT student TO std2 IDENTIFIED BY p123;
 GRANT student TO std3 IDENTIFIED BY p123;
 GRANT student TO std4 IDENTIFIED BY p123;

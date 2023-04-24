@@ -15,12 +15,13 @@ CREATE TABLE faculty
 (
     id	VARCHAR(512),
     faculty_name	VARCHAR(512),
+    short_name      VARCHAR(512), 
     dean	INT
 );
 
-INSERT INTO faculty (id, faculty_name, dean) VALUES ('1', 'Applied Science', '1');
-INSERT INTO faculty (id, faculty_name, dean) VALUES ('2', 'Electrical and Electronics Engineering', '2');
-INSERT INTO faculty (id, faculty_name, dean) VALUES ('3', 'Computer Science and Engineering', '3');
+INSERT INTO faculty (id, faculty_name, short_name, dean) VALUES ('1', 'Applied Science', 'AS', '1');
+INSERT INTO faculty (id, faculty_name, short_name, dean) VALUES ('2', 'Electrical and Electronics Engineering', 'EEE', '2');
+INSERT INTO faculty (id, faculty_name, short_name, dean) VALUES ('3', 'Computer Science and Engineering', 'CSE', '3');
 
 
 CREATE TABLE department 
@@ -28,42 +29,44 @@ CREATE TABLE department
     id	INT,
     dept_head	INT,
     dept_name	VARCHAR(512),
+    short_name  VARCHAR(512),
     faculty_id	VARCHAR(512)
 );
 
-INSERT INTO department (id, dept_head, dept_name, faculty_id) VALUES ('1', '4', 'Applied Math', '1');
-INSERT INTO department (id, dept_head, dept_name, faculty_id) VALUES ('2', '5', 'Political theory', '1');
-INSERT INTO department (id, dept_head, dept_name, faculty_id) VALUES ('3', '6', 'Electrical engineering', '2');
-INSERT INTO department (id, dept_head, dept_name, faculty_id) VALUES ('4', '7', 'Control engineering - automation', '2');
-INSERT INTO department (id, dept_head, dept_name, faculty_id) VALUES ('5', '8', 'Computer Science', '3');
-INSERT INTO department (id, dept_head, dept_name, faculty_id) VALUES ('6', '9', 'Computer Engineering', '3');
+INSERT INTO department (id, dept_head, dept_name, short_name, faculty_id) VALUES ('1', '4', 'Applied Math', 'APM', '1');
+INSERT INTO department (id, dept_head, dept_name, short_name, faculty_id) VALUES ('2', '5', 'Political theory', 'PTH', '1');
+INSERT INTO department (id, dept_head, dept_name, short_name, faculty_id) VALUES ('3', '6', 'Electrical engineering', 'EE', '2');
+INSERT INTO department (id, dept_head, dept_name, short_name, faculty_id) VALUES ('4', '7', 'Control engineering - automation', 'CEA', '2');
+INSERT INTO department (id, dept_head, dept_name, short_name, faculty_id) VALUES ('5', '8', 'Computer Science', 'CS', '3');
+INSERT INTO department (id, dept_head, dept_name, short_name, faculty_id) VALUES ('6', '9', 'Computer Engineering', 'CE', '3');
 
 CREATE TABLE subject 
 (
     id	INT,
+    short_name      VARCHAR(512),
     subject_name	VARCHAR(512),
     credits	INT,
     dept_id	INT
 );
 
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('1', 'Analog Signal Processing', '3', '3');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('2', 'Univ Physics Thermal Phys', '3', '3');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('3', 'Intro to Electromagnetic Field', '4', '3');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('4', 'Power Electronics', '3', '4');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('5', 'Electric Machinery', '4', '4');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('6', 'Industrial Quality Control', '3', '4');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('7', 'General Chemistry I', '4', '1');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('8', 'Calculus I', '4', '1');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('9', 'Calculus II', '3', '1');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('10', 'Introduction to Vietnamese Law System', '2', '2');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('11', 'Economics', '2', '2');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('12', 'Basic Principles of Marxism-Leninism', '3', '2');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('13', 'Database Systems', '4', '5');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('14', 'Operating Systems', '3', '5');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('15', 'Principles of Programming Languages', '4', '5');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('16', 'Electronic Devices and Circuit', '3', '6');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('17', 'Computer Architecture', '3', '6');
-INSERT INTO subject (id, subject_name, credits, dept_id) VALUES ('18', 'Logic Design Project', '4', '6');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('1', 'ASP', 'Analog Signal Processing', 'ASP', '3', '3');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('2', 'UPT', 'Univ Physics Thermal Phys', '3', '3');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('3', 'IEF', 'Intro to Electromagnetic Field', '4', '3');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('4', 'PE', 'Power Electronics', '3', '4');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('5', 'EM', 'Electric Machinery', '4', '4');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('6', 'IQC', 'Industrial Quality Control', '3', '4');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('7', 'GCH', 'General Chemistry I', '4', '1');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('8', 'CL1', 'Calculus I', '4', '1');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('9', 'CL2', 'Calculus II', '3', '1');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('10', 'ILS', 'Introduction to Vietnamese Law System', '2', '2');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('11', 'ENM', 'Economics', '2', '2');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('12', 'PML', 'Basic Principles of Marxism-Leninism', '3', '2');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('13', 'DS', 'Database Systems', '4', '5');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('14', 'OS', 'Operating Systems', '3', '5');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('15', 'PPL', 'Principles of Programming Languages', '4', '5');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('16', 'EDC', 'Electronic Devices and Circuit', '3', '6');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('17', 'CA', 'Computer Architecture', '3', '6');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('18', 'LDP', 'Logic Design Project', '4', '6');
 
 CREATE TABLE teacher 
 (
