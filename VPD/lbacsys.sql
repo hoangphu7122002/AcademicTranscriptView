@@ -38,11 +38,11 @@ BEGIN
         std_id := 'id = ' || substr(std_id, 4, 2);
         dbms_output.put_line('This is a student');
     elsif  prefix = 'PR' then
-        std_id := get_stdid_from_parent(std_id);
+        std_id := ' IN' || '( ' || get_stdid_from_parent(std_id) || ')';
         dbms_output.put_line('This is a parent');
     elsif prefix = 'LB' then
         dbms_output.put_line('This is LBACSYS');
-    elseif prefix = 'TCH' then:
+    elseif prefix = 'TC' then:
         std_id := 'course_id = ' ||  get_course_id(std_id);
         dbms_output.put_line('This is a teacher');
     else
@@ -147,20 +147,6 @@ end;
 ------------------------------------------------------------------------------------
 
 -- POLICY FOR PARENT TO VIEW HIS/HER CHILDREN SCORE
-DECLARE 
-    v_concatenated_values VARCHAR2(4000);
-    cursor c_table_values
-    is
-        select id
-        from atv.student;
-begin
-    select LISTAGG(id,', ') within group (ORDER BY id)
-    into v_concatenated_values
-    from atv.student where parent_id = 3;
-    dbms_output.put_line(v_concatenated_values);
-end;
-/
-
 create or replace function get_stdid_from_parent(prid varchar2)
 return varchar2
 as
