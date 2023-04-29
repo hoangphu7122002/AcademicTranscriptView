@@ -1,5 +1,5 @@
--- EXAMPLE POLICY
-CONN lbacsys/p123;
+
+CONN lbacsys/lbacsys;
 
 BEGIN
     SA_SYSDBA.CREATE_POLICY (
@@ -25,25 +25,25 @@ EXECUTE sa_components.create_level('MANAGE_SCORE',  10, 'NA', 'NOT_ALLOW');
 EXECUTE sa_components.create_level('MANAGE_SCORE',  20, 'V', 'VIEW');
 EXECUTE sa_components.create_level('MANAGE_SCORE',  30, 'E',' EDIT');
 
-EXECUTE sa_components.alter_compartment('MANAGE_SCORE',10,'HK201','SEMESTER_1');
-EXECUTE sa_components.alter_compartment('MANAGE_SCORE',20,'HK202','SEMESTER_2');
-EXECUTE sa_components.alter_compartment('MANAGE_SCORE',30,'HK203','SEMESTER_3');
-EXECUTE sa_components.alter_compartment('MANAGE_SCORE',40,'HK211','SEMESTER_4');
-EXECUTE sa_components.alter_compartment('MANAGE_SCORE',50,'HK212','SEMESTER_5');
-EXECUTE sa_components.alter_compartment('MANAGE_SCORE',60,'HK213','SEMESTER_6');
-EXECUTE sa_components.alter_compartment('MANAGE_SCORE',70,'HK221','SEMESTER_7');
-EXECUTE sa_components.alter_compartment('MANAGE_SCORE',80,'HK222','SEMESTER_8');
-EXECUTE sa_components.alter_compartment('MANAGE_SCORE',90,'HK223','SEMESTER_9');
+-- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',10,'HK201','SEMESTER_1');
+-- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',20,'HK202','SEMESTER_2');
+-- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',30,'HK203','SEMESTER_3');
+-- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',40,'HK211','SEMESTER_4');
+-- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',50,'HK212','SEMESTER_5');
+-- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',60,'HK213','SEMESTER_6');
+-- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',70,'HK221','SEMESTER_7');
+-- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',80,'HK222','SEMESTER_8');
+-- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',90,'HK223','SEMESTER_9');
 
---EXECUTE sa_components.create_compartment('MANAGE_SCORE',10,'HK201','SEMESTER_1');
---EXECUTE sa_components.create_compartment('MANAGE_SCORE',20,'HK202','SEMESTER_2');
---EXECUTE sa_components.create_compartment('MANAGE_SCORE',30,'HK203','SEMESTER_3');
---EXECUTE sa_components.create_compartment('MANAGE_SCORE',40,'HK211','SEMESTER_4');
---EXECUTE sa_components.create_compartment('MANAGE_SCORE',50,'HK212','SEMESTER_5');
---EXECUTE sa_components.create_compartment('MANAGE_SCORE',60,'HK213','SEMESTER_6');
---EXECUTE sa_components.create_compartment('MANAGE_SCORE',70,'HK221','SEMESTER_7');
---EXECUTE sa_components.create_compartment('MANAGE_SCORE',80,'HK222','SEMESTER_8');
---EXECUTE sa_components.create_compartment('MANAGE_SCORE',90,'HK223','SEMESTER_9');
+EXECUTE sa_components.create_compartment('MANAGE_SCORE',10,'HK201','SEMESTER_1');
+EXECUTE sa_components.create_compartment('MANAGE_SCORE',20,'HK202','SEMESTER_2');
+EXECUTE sa_components.create_compartment('MANAGE_SCORE',30,'HK203','SEMESTER_3');
+EXECUTE sa_components.create_compartment('MANAGE_SCORE',40,'HK211','SEMESTER_4');
+EXECUTE sa_components.create_compartment('MANAGE_SCORE',50,'HK212','SEMESTER_5');
+EXECUTE sa_components.create_compartment('MANAGE_SCORE',60,'HK213','SEMESTER_6');
+EXECUTE sa_components.create_compartment('MANAGE_SCORE',70,'HK221','SEMESTER_7');
+EXECUTE sa_components.create_compartment('MANAGE_SCORE',80,'HK222','SEMESTER_8');
+EXECUTE sa_components.create_compartment('MANAGE_SCORE',90,'HK223','SEMESTER_9');
 
 EXECUTE sa_components.create_group('MANAGE_SCORE',1000,'BK','BACH_KHOA', NULL);
 EXECUTE sa_components.create_group('MANAGE_SCORE',2000,'PDT','PHONG_DAO_TAO','BK');
@@ -90,62 +90,6 @@ EXECUTE sa_components.create_group('MANAGE_SCORE',3070,'CLS07','CLASS_07','CLS')
 EXECUTE sa_components.create_group('MANAGE_SCORE',3080,'CLS08','CLASS_08','CLS');
 EXECUTE sa_components.create_group('MANAGE_SCORE',3090,'CLS09','CLASS_09','CLS');
 EXECUTE sa_components.create_group('MANAGE_SCORE',3100,'CLS10','CLASS_10','CLS');
-
--- ACTUAL SYSTEM LABELS
-
--- EXECUTE sa_label_admin.create_label
---     ('MANAGE_SCORE',10000,'PUB');
--- EXECUTE sa_label_admin.create_label
---     ('MANAGE_SCORE',12040,'PUB:SCR:STU');
--- EXECUTE sa_label_admin.create_label
---     ('MANAGE_SCORE',20000,'CONF');
--- EXECUTE sa_label_admin.create_label
---     ('MANAGE_SCORE',20040,'CONF:PER:STU');
---     -- CONF:PER
-
--- APPLY POLICY
-CONN sec_admin/secadmin;
-
-BEGIN
-sa_policy_admin.apply_table_policy
-    (policy_name => 'MANAGE_SCORE',
-    schema_name => 'ATV',
-    table_name => 'COURSE_SCORE',
-    table_options => 'NO_CONTROL');
-END;
-/
-
--- CHECK IF OLS column has been added to table
-CONN atv/atv;
-DESCRIBE course_score;
-
--- DATA LABELS
-CONN atv/atv;
-GRANT select, insert, update ON course_score TO sec_admin;
-
-CONN sec_admin/secadmin;
-UPDATE atv.course_score SET label_tag = char_to_label('MANAGE_SCORE', <label>) WHERE course_id=<input1>, student_id=<input2>;
--- may have many more update here
-
-COMMIT;
-
--- RE-ACTIVATE POLICY
-BEGIN
-sa_policy_admin.remove_table_policy
-    (policy_name => 'MANAGE_SCORE',
-    schema_name => 'ATV',
-    table_name => 'COURSE_SCORE');
-
-sa_policy_admin.apply_table_policy
-    (policy_name => 'MANAGE_SCORE',
-    schema_name => 'ATV',
-    table_name => 'COURSE_SCORE',
-    table_options => 'READ_CONTROL,WRITE_CONTROL,CHECK_CONTROL');
-END;
-/
-
--- USER LABELS
-
 
 
 

@@ -1,5 +1,5 @@
 --------------------------------
-CONN atv_sec/atvSec;
+CONN atv_sec/atvsec;
 BEGIN
     sa_user_admin.set_levels
     (policy_name => 'MANAGE_SCORE',
@@ -10,7 +10,6 @@ BEGIN
     row_level => 'V');
 END;
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_compartments
     (policy_name => 'MANAGE_SCORE',
@@ -21,7 +20,6 @@ BEGIN
     row_comps => 'SM');
 END;
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_groups
     (policy_name => 'MANAGE_SCORE',
@@ -33,7 +31,6 @@ BEGIN
 END;
 --------------------------------
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_levels
     (policy_name => 'MANAGE_SCORE',
@@ -44,7 +41,6 @@ BEGIN
     row_level => 'V');
 END;
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_compartments
     (policy_name => 'MANAGE_SCORE',
@@ -55,7 +51,6 @@ BEGIN
     row_comps => '');
 END;
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_groups
     (policy_name => 'MANAGE_SCORE',
@@ -67,8 +62,6 @@ BEGIN
 END;
 
 --------------------------------
-
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_levels
     (policy_name => 'MANAGE_SCORE',
@@ -79,7 +72,6 @@ BEGIN
     row_level => 'V');
 END;
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_compartments
     (policy_name => 'MANAGE_SCORE',
@@ -90,7 +82,6 @@ BEGIN
     row_comps => '');
 END;
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_groups
     (policy_name => 'MANAGE_SCORE',
@@ -103,7 +94,6 @@ END;
 
 --------------------------------
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_levels
     (policy_name => 'MANAGE_SCORE',
@@ -114,7 +104,6 @@ BEGIN
     row_level => 'V');
 END;
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_compartments
     (policy_name => 'MANAGE_SCORE',
@@ -125,7 +114,6 @@ BEGIN
     row_comps => 'HK222,HK223');
 END;
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_groups
     (policy_name => 'MANAGE_SCORE',
@@ -138,7 +126,6 @@ END;
 
 --------------------------------
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_levels
     (policy_name => 'MANAGE_SCORE',
@@ -149,7 +136,6 @@ BEGIN
     row_level => 'V');
 END;
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_compartments
     (policy_name => 'MANAGE_SCORE',
@@ -160,7 +146,6 @@ BEGIN
     row_comps => 'HK223');
 END;
 
-CONN atv_sec/atvSec;
 BEGIN
     sa_user_admin.set_groups
     (policy_name => 'MANAGE_SCORE', 

@@ -4,8 +4,12 @@ CONN atv/atv;
 GRANT connect, create user, drop user, create role, drop any role
     TO atv_sec IDENTIFIED BY atvsec;
 
--- Create role SEC_ADMIN to manage policy, 
-GRANT connect TO sec_admin IDENTIFIED BY secadmin;
+-- Create role SEC_ADMIN to manage policy.
+GRANT connect, 
+    create function, 
+    create procedure, 
+    execute ON atv.course_score 
+TO sec_admin IDENTIFIED BY secadmin;
 
 CREATE ROLE student; -- 60
 GRANT connect, create session TO student;
@@ -26,7 +30,7 @@ GRANT connect, create session TO dean;
 CREATE USER emp_pdt IDENTIFIED BY p123; -- 1
 GRANT connect, create session TO emp_pdt;
 
--- CREATE and GRANT ROLE to usersGRANT student TO std1 IDENTIFIED BY p123;
+-- CREATE and GRANT ROLE to users
 GRANT student TO std1 IDENTIFIED BY p123;
 GRANT student TO std2 IDENTIFIED BY p123;
 GRANT student TO std3 IDENTIFIED BY p123;
