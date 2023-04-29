@@ -1,4 +1,11 @@
-CONN atv/atv;
+select * from student where parent_id= 2;
+SET SERVEROUTPUT ON;
+begin
+    dbms_output.put_line('a');
+end;
+
+
+--CONN atv/atv;
 -- ADMIN USERS
 -- Create role ATV_SEC to manage privilege to access data in PROJECT schema of other users.
 GRANT connect, create user, drop user, create role, drop any role
@@ -25,6 +32,13 @@ GRANT connect, create session TO dean;
 
 CREATE USER emp_pdt IDENTIFIED BY p123; -- 1
 GRANT connect, create session TO emp_pdt;
+
+grant select, update on student to student;
+grant select on course_score to student;
+
+grant select on course_score to parent;
+grant execute on lbacsys.get_stdid_from_parent to parent;
+
 
 -- CREATE and GRANT ROLE to usersGRANT student TO std1 IDENTIFIED BY p123;
 GRANT student TO std1 IDENTIFIED BY p123;
