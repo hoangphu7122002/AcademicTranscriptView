@@ -1,8 +1,8 @@
-select * from student where parent_id= 2;
-SET SERVEROUTPUT ON;
-begin
-    dbms_output.put_line('a');
-end;
+--select * from student where parent_id= 2;
+--SET SERVEROUTPUT ON;
+--begin
+--    dbms_output.put_line('a');
+--end;
 
 
 --CONN atv/atv;
@@ -12,19 +12,27 @@ GRANT connect, create user, drop user, create role, drop any role
     TO atv_sec IDENTIFIED BY atvsec;
 
 -- Create role SEC_ADMIN to manage policy.
-GRANT connect, 
-    create function, 
-    create procedure, 
-    execute ON atv.course_score 
-TO sec_admin IDENTIFIED BY secadmin;
+--GRANT connect, 
+--    create function, 
+--    create procedure, 
+--    execute ON atv.course_score 
+--TO sec_admin IDENTIFIED BY secadmin;
+
+grant connect, create procedure to sec_admin identified by secadmin;
+grant all privileges on atv.course_score to sec_admin;
 
 CREATE ROLE student; -- 60
 GRANT connect, create session TO student;
+grant select, update on student to student;
+grant select on course_score to student;
+
 CREATE ROLE parent; -- 40
 GRANT connect, create session TO parent;
+grant select on course_score to parent;
 
 CREATE ROLE teacher; -- 18
 GRANT connect, create session TO teacher;
+
 CREATE ROLE form_teacher; -- 10
 GRANT connect, create session TO form_teacher;
 
@@ -37,18 +45,7 @@ GRANT connect, create session TO dean;
 CREATE USER emp_pdt IDENTIFIED BY p123; -- 1
 GRANT connect, create session TO emp_pdt;
 
-<<<<<<< HEAD
-grant select, update on student to student;
-grant select on course_score to student;
-
-grant select on course_score to parent;
-grant execute on lbacsys.get_stdid_from_parent to parent;
-
-
--- CREATE and GRANT ROLE to usersGRANT student TO std1 IDENTIFIED BY p123;
-=======
 -- CREATE and GRANT ROLE to users
->>>>>>> f6a407cdab1f76a765d5f2d832cfecb76bcc36d4
 GRANT student TO std1 IDENTIFIED BY p123;
 GRANT student TO std2 IDENTIFIED BY p123;
 GRANT student TO std3 IDENTIFIED BY p123;

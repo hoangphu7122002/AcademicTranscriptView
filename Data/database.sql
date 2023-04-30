@@ -1,6 +1,6 @@
-CONN sys/123456 as sysdba;
-GRANT ALL PRIVILEGES TO atv IDENTIFIED BY atv;
-CONN atv/atv;
+--CONN sys/123456 as sysdba;
+--GRANT ALL PRIVILEGES TO atv IDENTIFIED BY atv;
+--CONN atv/atv;
 
 -- drop table atv.course_score;
 -- drop table atv.course;
