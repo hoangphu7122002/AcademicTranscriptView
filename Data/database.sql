@@ -50,7 +50,7 @@ CREATE TABLE subject
     dept_id	INT
 );
 
-INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('1', 'ASP', 'Analog Signal Processing', 'ASP', '3', '3');
+INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('1', 'ASP', 'Analog Signal Processing', '3', '3');
 INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('2', 'UPT', 'Univ Physics Thermal Phys', '3', '3');
 INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('3', 'IEF', 'Intro to Electromagnetic Field', '4', '3');
 INSERT INTO subject (id, short_name, subject_name, credits, dept_id) VALUES ('4', 'PE', 'Power Electronics', '3', '4');

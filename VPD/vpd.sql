@@ -5,55 +5,11 @@
 -- ALTER USER lbacsys IDENTIFIED BY lbacsys ACCOUNT UNLOCK;
 -- CONN lbacsys/lbacsys
 
+select LISTAGG(ID, ', ') WITHIN GROUP (ORDER BY ID)  from atv.student where parent_id = 2;
+---------------
+
 SET SERVEROUTPUT ON
 
-
-----------------------------------------------------
--- FUNCTION TO GET CHILDREN ID FROM PARENT ID
-create or replace function get_stdid_from_parent(
-    prid varchar2)
-return varchar2
-as
-    v_concatenated_values varchar2(1000);
-begin 
-    select listagg(id, ', ') within group (Order by id) 
-        into v_concatenated_values from atv.student where parent_id = substr(prid, 3, 2);
-    return v_concatenated_values;
-end;
-/
-
--------------------------------------
--- CREATE THE HELPER TABLE TO STORE PARENTID AND CHILDREN ID
-CREATE TABLE parent_and_child 
-(
-    prid            varchar2(10),
-    childs          VARCHAR2(50)
-);
-
---drop table lbacsys.parent_and_child;
-
---------------------------------------------------
--- Function to put parentId and children ids value to table 
-create or replace function create_pac_table
-return varchar2
-as
-    pr_id varchar2(50);
-    CURSOR c_source IS
-        SELECT id FROM atv.parent;
-    children varchar2(50);
-begin 
-    delete from parent_and_child;
-    FOR r_source IN c_source LOOP
-        -- Get the value from the source table
-        pr_id := 'PR' || to_char(r_source.id);
-        children := get_stdid_from_parent(pr_id);
-        insert into parent_and_child (prid, childs) values (pr_id, children);
-        
---        dbms_output.put_line(pr_id || ' ' || children);
-    end loop;
-    commit;
-    return 1;
-end;
 --------------------------
 -- CREATE FUNCTION FOR GETTING CURRENT ID OF THE USER
 CREATE OR REPLACE FUNCTION get_stdid
@@ -62,8 +18,75 @@ RETURN VARCHAR2
 AUTHID CURRENT_USER AS
     std_id VARCHAR2(100);
 BEGIN
-    SELECT USER INTO std_id FROM DUAL;
+    SELECT USER INTO std_id FROM dual;
     RETURN std_id;
+END;
+/
+----------------------------------------------------
+-- FUNCTION TO GET CHILDREN ID FROM PARENT ID
+CREATE OR REPLACE FUNCTION get_stdid_from_parent(
+    prid VARCHAR2)
+RETURN VARCHAR2
+AS
+    v_concatenated_values VARCHAR2(1000);
+BEGIN 
+    SELECT LISTAGG(ID, ', ') WITHIN GROUP (ORDER BY ID) 
+        INTO v_concatenated_values FROM atv.student WHERE parent_id = substr(prid, 3, 2);
+    RETURN v_concatenated_values;
+END;
+/
+
+drop function get_stdid_from_parent;
+
+begin
+    dbms_output.put_line(get_stdid_from_parent('PR2'));
+end;
+/
+-------------------------------------
+-- CREATE THE HELPER TABLE TO STORE PARENTID AND CHILDREN ID
+CREATE TABLE parent_and_child_2 
+(
+    prid            VARCHAR2(10),
+    childs          VARCHAR2(50)
+);
+----
+drop table lbacsys.parent_and_child_2;
+
+declare 
+    CURSOR c_source IS
+        SELECT ID FROM atv.PARENT;
+    children VARCHAR2(50);
+begin
+    FOR r_source IN c_source LOOP
+        -- Get the value from the source table
+        children := get_stdid_from_parent(pr_id);
+        INSERT INTO parent_and_child_2 (prid, childs) VALUES (pr_id, children);
+        
+--        dbms_output.put_line(pr_id || ' ' || children);
+    END LOOP;
+end;
+
+--------------------------------------------------
+-- Function to put parentId and children ids value to table 
+CREATE OR REPLACE FUNCTION create_pac_table
+RETURN VARCHAR2
+AS
+    pr_id VARCHAR2(50);
+    CURSOR c_source IS
+        SELECT ID FROM atv.PARENT;
+    children VARCHAR2(50);
+BEGIN 
+    DELETE FROM parent_and_child_2;
+    FOR r_source IN c_source LOOP
+        -- Get the value from the source table
+        pr_id := 'PR' || to_char(r_source.ID);
+        children := get_stdid_from_parent(pr_id);
+        INSERT INTO parent_and_child_2 (prid, childs) VALUES (pr_id, children);
+        
+--        dbms_output.put_line(pr_id || ' ' || children);
+    END LOOP;
+    COMMIT;
+    RETURN 1;
 END;
 /
 
@@ -82,72 +105,72 @@ END;
 ------------------------------------------------------------------------------------
 
 -- POLICY FUNCTION THAT USE FOR THE FIRST REQUIREMENT
-create or replace function stdid(
+CREATE OR REPLACE FUNCTION stdid(
     p_schema IN VARCHAR2,
     p_object IN VARCHAR2)
-return VARCHAR2
+RETURN VARCHAR2
 AS
     std_id VARCHAR2(100);
     prefix VARCHAR2(100);
     child_id VARCHAR2(50);
-    r_value varchar2(50);
+    r_value VARCHAR2(50);
 BEGIN
     std_id := get_stdid();
-    prefix := SUBSTR(std_id, 1, 2);
-    if prefix = 'ST' then
+    prefix := substr(std_id, 1, 2);
+    IF prefix = 'ST' THEN
         r_value := 'id = ' || substr(std_id, 4, 2);
         dbms_output.put_line('This is a student');
-    elsif prefix = 'PR' then
+    ELSIF prefix = 'PR' THEN
         child_id := create_pac_table();
-        select childs into child_id from parent_and_child where prid = std_id;
+        SELECT childs INTO child_id FROM parent_and_child_2 WHERE prid = std_id;
         r_value := 'id IN ' || '(' || child_id || ')';        
         dbms_output.put_line('This is a parent');
-    elsif prefix = 'LB' then
+    ELSIF prefix = 'LB' THEN
         r_value := '1=1';
-    else
-        r_value := '1=0';
+    ELSE
+        r_value := '1=1';
         dbms_output.put_line('This is a no one');
-    end if;
-    commit;
+    END IF;
+    COMMIT;
     dbms_output.put_line('Return value is: ' || r_value);
     RETURN r_value;
-end;
+END;
 /
 ------------------------------------------------------------------------------------
 
 -- NOT ALLOW POLICY FUNCTION
-create or replace function not_allow(
+CREATE OR REPLACE FUNCTION not_allow(
     p_schema IN VARCHAR2,
     p_object IN VARCHAR2)
-return VARCHAR2
+RETURN VARCHAR2
 AS
 BEGIN
     RETURN '1=0';
-end;
+END;
 /
 ------------------------------------------------------------------------------------
 
 -- CREATE POLICY CAN MAKE THE USER SEE ONLY HIS/HER INFORMATION
-begin 
+BEGIN 
     dbms_rls.add_policy
     (object_schema  => 'atv',
     object_name     => 'STUDENT',
     policy_name     => 'STUDENT_VIEW_INFOR',
     policy_function => 'stdid');
-end;
+END;
 /
 
-begin 
-    dbms_rls.drop_policy
-    (object_schema  => 'atv',
-    object_name     => 'STUDENT',
-    policy_name     => 'STUDENT_VIEW_INFOR');
-end;
-/
+--BEGIN 
+--    dbms_rls.drop_policy
+--    (object_schema  => 'atv',
+--    object_name     => 'STUDENT',
+--    policy_name     => 'STUDENT_VIEW_INFOR');
+--END;
+--/
 ------------------------------------------------------------------------------------
 
 -- POLICY THAT USER CAN ONLY CHANGE HIS/HER ETHNIC, RELIGION AND EMAIL INFORMATION
-begin 
+BEGIN 
     dbms_rls.add_policy
     (object_schema  => 'atv',
     object_name     => 'STUDENT',
@@ -155,20 +178,20 @@ begin
     policy_function => 'stdid',
     statement_types => 'UPDATE',
     sec_relevant_cols => 'ethnic, religion, email');
-end;
+END;
 /
 
-begin 
-    dbms_rls.drop_policy
-    (object_schema  => 'atv',
-    object_name     => 'STUDENT',
-    policy_name     => 'STUDENT_EDIT_INFOR_ALLOW');
-end;
-/
+--BEGIN 
+--    dbms_rls.drop_policy
+--    (object_schema  => 'atv',
+--    object_name     => 'STUDENT',
+--    policy_name     => 'STUDENT_EDIT_INFOR_ALLOW');
+--END;
+--/
 ------------------------------------------------------------------------------------
 
 -- POLICY THAT USER CAN ONLY CHANGE HIS/HER ETHNIC, RELIGION AND EMAIL INFORMATION
-begin 
+BEGIN 
     dbms_rls.add_policy
     (object_schema  => 'atv',
     object_name     => 'STUDENT',
@@ -176,7 +199,7 @@ begin
     policy_function => 'not_allow',
     statement_types => 'UPDATE',
     sec_relevant_cols => 'id, first_name, last_name, birth_date, gender, home_town, address, class_id, parent_id');
-end;
+END;
 /
 
 --begin 
@@ -189,18 +212,15 @@ end;
 ------------------------------------------------------------------------------------
 
 -- POLICY THAT ALLOW STUDENT JUST SEE HIS/HER SCORE
-begin 
+BEGIN 
     dbms_rls.add_policy
     (object_schema  => 'atv',
     object_name     => 'COURSE_SCORE',
     policy_name     => 'STUDENT_VIEW_SCORE',
     policy_function => 'stdid');
-end;
+END;
 /
--------------------------------
--- COMMIT THE STATE
-commit;
-------------------------------
+--
 --begin 
 --    dbms_rls.drop_policy
 --    (object_schema  => 'atv',
@@ -209,6 +229,10 @@ commit;
 --end;
 --/
 ------------------------------------------------------------------------------------
+-------------------------------
+-- COMMIT THE STATE
+COMMIT;
+------------------------------
 
 --create or replace function get_subject_id_from_course(prid varchar2)
 --return varchar2

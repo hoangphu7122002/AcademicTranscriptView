@@ -35,6 +35,8 @@ grant select on course_score to parent;
 
 CREATE ROLE teacher; -- 18
 GRANT connect, create session TO teacher;
+grant select, update on course_score to teacher;
+grant select on course to teacher;
 
 CREATE ROLE form_teacher; -- 10
 GRANT connect, create session TO form_teacher;
@@ -49,6 +51,7 @@ grant select on course_score to dean;
 
 CREATE USER emp_pdt IDENTIFIED BY p123; -- 1
 GRANT connect, create session TO emp_pdt;
+grant select, update, insert, delete on course_score to emp_pdt;
 
 -- CREATE and GRANT ROLE to users
 GRANT student TO std1 IDENTIFIED BY p123;

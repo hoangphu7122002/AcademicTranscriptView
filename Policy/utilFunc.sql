@@ -1,6 +1,15 @@
 --CONN sec_admin/secadmin;
 
-
+-- APPLY POLICY
+BEGIN
+sa_policy_admin.apply_table_policy
+    (policy_name => 'MANAGE_SCORE',
+    schema_name => 'ATV',
+    table_name => 'COURSE_SCORE',
+    table_options => 'NO_CONTROL');
+END;
+/
+-----------------------------
 CREATE OR REPLACE FUNCTION GET_ID_CLS(
     CLASS_ID IN INT
 )
@@ -48,6 +57,14 @@ BEGIN
 END;
 /
 
+
+
+--select semester from atv.course where id = 12;
+--select short_name from atv.subject where id in (
+--        select subject_id 
+--        from atv.course c
+--        where c.id = 12);
+--select short_name from atv.subject where id = 1;
 --CREATE OR REPLACE PROCEDURE ASSIGN_ALL_DATA
 --IS
 --    Type idList IS TABLE OF atv.course_score%ROWTYPE;

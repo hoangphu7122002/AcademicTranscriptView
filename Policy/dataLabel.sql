@@ -1,14 +1,14 @@
 -- APPLY POLICY
 --CONN sec_admin/secadmin;
-
-BEGIN
-sa_policy_admin.apply_table_policy
-    (policy_name => 'MANAGE_SCORE',
-    schema_name => 'ATV',
-    table_name => 'COURSE_SCORE',
-    table_options => 'NO_CONTROL');
-END;
-/
+--
+--BEGIN
+--sa_policy_admin.apply_table_policy
+--    (policy_name => 'MANAGE_SCORE',
+--    schema_name => 'ATV',
+--    table_name => 'COURSE_SCORE',
+--    table_options => 'NO_CONTROL');
+--END;
+--/
 
 -- CHECK IF OLS column has been added to table
 -- CONN atv/atv;
@@ -27,7 +27,7 @@ BEGIN
     ASSIGN_DATA_LABEL(9,9);
     ASSIGN_DATA_LABEL(10,10);
     ASSIGN_DATA_LABEL(11,11);
-    --ASSIGN_DATA_LABEL(12,12);
+    ASSIGN_DATA_LABEL(12,12);
     ASSIGN_DATA_LABEL(13,13);
     ASSIGN_DATA_LABEL(14,14);
     ASSIGN_DATA_LABEL(15,15);
@@ -58,7 +58,7 @@ BEGIN
     ASSIGN_DATA_LABEL(40,40);
     ASSIGN_DATA_LABEL(41,41);
     ASSIGN_DATA_LABEL(42,42);
-    --ASSIGN_DATA_LABEL(43,43);
+    ASSIGN_DATA_LABEL(43,43);
     ASSIGN_DATA_LABEL(44,44);
     ASSIGN_DATA_LABEL(45,45);
     ASSIGN_DATA_LABEL(1,46);
@@ -72,7 +72,7 @@ BEGIN
     ASSIGN_DATA_LABEL(9,54);
     ASSIGN_DATA_LABEL(10,55);
     ASSIGN_DATA_LABEL(11,56);
-    --ASSIGN_DATA_LABEL(12,57);
+    ASSIGN_DATA_LABEL(12,57);
     ASSIGN_DATA_LABEL(13,58);
     ASSIGN_DATA_LABEL(14,59);
     ASSIGN_DATA_LABEL(15,60);
@@ -103,7 +103,7 @@ BEGIN
     ASSIGN_DATA_LABEL(40,25);
     ASSIGN_DATA_LABEL(41,26);
     ASSIGN_DATA_LABEL(42,27);
-    --ASSIGN_DATA_LABEL(43,28);
+    ASSIGN_DATA_LABEL(43,28);
     ASSIGN_DATA_LABEL(44,29);
     ASSIGN_DATA_LABEL(45,30);
     ASSIGN_DATA_LABEL(1,31);
@@ -117,7 +117,7 @@ BEGIN
     ASSIGN_DATA_LABEL(9,39);
     ASSIGN_DATA_LABEL(10,40);
     ASSIGN_DATA_LABEL(11,41);
-    --ASSIGN_DATA_LABEL(12,42);
+    ASSIGN_DATA_LABEL(12,42);
     ASSIGN_DATA_LABEL(13,43);
     ASSIGN_DATA_LABEL(14,44);
     ASSIGN_DATA_LABEL(15,45);
@@ -148,7 +148,7 @@ BEGIN
     ASSIGN_DATA_LABEL(40,10);
     ASSIGN_DATA_LABEL(41,11);
     ASSIGN_DATA_LABEL(42,12);
-    --ASSIGN_DATA_LABEL(43,13);
+    ASSIGN_DATA_LABEL(43,13);
     ASSIGN_DATA_LABEL(44,14);
     ASSIGN_DATA_LABEL(45,15);
     ASSIGN_DATA_LABEL(1,16);
@@ -162,7 +162,7 @@ BEGIN
     ASSIGN_DATA_LABEL(9,24);
     ASSIGN_DATA_LABEL(10,25);
     ASSIGN_DATA_LABEL(11,26);
-    --ASSIGN_DATA_LABEL(12,27);
+    ASSIGN_DATA_LABEL(12,27);
     ASSIGN_DATA_LABEL(13,28);
     ASSIGN_DATA_LABEL(14,29);
     ASSIGN_DATA_LABEL(15,30);
@@ -193,7 +193,7 @@ BEGIN
     ASSIGN_DATA_LABEL(40,55);
     ASSIGN_DATA_LABEL(41,56);
     ASSIGN_DATA_LABEL(42,57);
-    --ASSIGN_DATA_LABEL(43,58);
+    ASSIGN_DATA_LABEL(43,58);
     ASSIGN_DATA_LABEL(44,59);
     ASSIGN_DATA_LABEL(45,60);
     COMMIT;
@@ -223,11 +223,12 @@ END;
 
 -- RE-ACTIVATE POLICY
 BEGIN
-sa_policy_admin.remove_table_policy
-    (policy_name => 'MANAGE_SCORE',
-    schema_name => 'ATV',
-    table_name => 'COURSE_SCORE');
-
+    sa_policy_admin.remove_table_policy
+        (policy_name => 'MANAGE_SCORE',
+        schema_name => 'ATV',
+        table_name => 'COURSE_SCORE');
+end;
+begin
 sa_policy_admin.apply_table_policy
     (policy_name => 'MANAGE_SCORE',
     schema_name => 'ATV',

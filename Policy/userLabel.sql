@@ -3,7 +3,7 @@
 BEGIN
     sa_user_admin.set_levels
     (policy_name => 'MANAGE_SCORE',
-    user_name => 'TCH10',
+    user_name => 'TCH12',
     max_level => 'V',
     min_level => 'NA',
     def_level => 'V',
@@ -13,7 +13,7 @@ END;
 BEGIN
     sa_user_admin.set_compartments
     (policy_name => 'MANAGE_SCORE',
-    user_name => 'TCH10',
+    user_name => 'TCH12',
     read_comps => 'HK223',
     write_comps => '',
     def_comps => 'HK223',
@@ -23,11 +23,11 @@ END;
 BEGIN
     sa_user_admin.set_groups
     (policy_name => 'MANAGE_SCORE',
-    user_name => 'TCH10',
-    read_groups => 'CLS10',
-    write_groups => 'CLS10',
-    def_groups => 'CLS10',
-    row_groups => 'CLS10');
+    user_name => 'TCH12',
+    read_groups => 'CLS02',
+    write_groups => 'CLS02',
+    def_groups => 'CLS02',
+    row_groups => 'CLS02');
 END;
 /
 --------------------------------
@@ -48,8 +48,8 @@ BEGIN
     user_name => 'HD5',
     read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
     write_comps => '',
-    def_comps => 'HK223',
-    row_comps => '');
+    def_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+    row_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223');
 END;
 /
 BEGIN
@@ -59,7 +59,7 @@ BEGIN
     read_groups => 'CS',
     write_groups => '',
     def_groups => 'CS',
-    row_groups => '');
+    row_groups => 'CS');
 END;
 /
 --------------------------------
@@ -74,23 +74,31 @@ BEGIN
 END;
 /
 BEGIN
+--    sa_user_admin.drop_all_compartments
+--        (policy_name => 'MANAGE_SCORE',
+--        user_name => 'DN3');
+--end;
     sa_user_admin.set_compartments
-    (policy_name => 'MANAGE_SCORE',
-    user_name => 'DN3',
-    read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
-    write_comps => '',
-    def_comps => 'HK222',
-    row_comps => '');
+        (policy_name => 'MANAGE_SCORE',
+        user_name => 'DN3',
+        read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+        write_comps => '',
+        def_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+        row_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223');
 END;
 /
 BEGIN
+--    sa_user_admin.drop_all_groups
+--        (policy_name => 'MANAGE_SCORE',
+--        user_name => 'DN3');
+--end;
     sa_user_admin.set_groups
-    (policy_name => 'MANAGE_SCORE',
-    user_name => 'DN3',
-    read_groups => 'CSE',
-    write_groups => '',
-    def_groups => 'CSE',
-    row_groups => '');
+        (policy_name => 'MANAGE_SCORE',
+        user_name => 'DN3',
+        read_groups => 'CSE',
+        write_groups => '',
+        def_groups => 'CSE',
+        row_groups => 'CSE');
 END;
 /
 --------------------------------
@@ -170,13 +178,16 @@ BEGIN
 END;
 /
 BEGIN
+--    sa_user_admin.drop_all_compartments
+--        (policy_name => 'MANAGE_SCORE',
+--        user_name => 'TCH11');
+--end;
     sa_user_admin.set_compartments
     (policy_name => 'MANAGE_SCORE',
     user_name => 'TCH11',
     read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
     write_comps => 'HK223',
-    def_comps => 'HK223',
-    row_comps => 'HK223');
+    def_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223');
 END;
 /
 BEGIN
@@ -185,8 +196,41 @@ BEGIN
     user_name => 'TCH11',
     read_groups => 'IEF,PE,CL2,ENM,PML,PPL',
     write_groups => 'IEF,PE,CL2,PPL',
-    def_groups => 'IEF,PE,CL2,PPL',
-    row_groups => 'IEF,PE,CL2,PPL');
+    def_groups => 'IEF,PE,CL2,ENM,PML,PPL');
+END;
+/
+----------------------------
+
+BEGIN
+    sa_user_admin.set_levels
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'TCH15',
+    max_level => 'E',
+    min_level => 'V',
+    def_level => 'V',
+    row_level => 'V');
+END;
+/
+BEGIN
+--    sa_user_admin.drop_all_compartments
+--        (policy_name => 'MANAGE_SCORE',
+--        user_name => 'TCH11');
+--end;
+    sa_user_admin.set_compartments
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'TCH15',
+    read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+    write_comps => 'HK223',
+    def_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223');
+END;
+/
+BEGIN
+    sa_user_admin.set_groups
+    (policy_name => 'MANAGE_SCORE', 
+    user_name => 'TCH15',
+    read_groups => 'UPT,PE,CL1,EDC',
+    write_groups => 'PE',
+    def_groups => 'UPT,PE,CL1,EDC');
 END;
 /
 --------------------------------

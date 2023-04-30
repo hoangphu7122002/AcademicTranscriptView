@@ -7,7 +7,15 @@ BEGIN
         column_name => 'LABEL_TAG');
 END;
 /
-
+--
+--drop role MANAGE_SCORE_DBA;
+--begin
+--    SA_SYSDBA.DROP_POLICY(
+--        policy_name => 'MANAGE_SCORE',
+--        drop_column => TRUE
+--    );
+--end;
+--/
 -- Auto create new role MANAGE_SCORE_DBA.
 GRANT MANAGE_SCORE_DBA TO sec_admin; -- may have many policies here
 
@@ -19,7 +27,8 @@ GRANT MANAGE_SCORE_DBA TO atv_sec; -- may have many policies here
 GRANT execute ON sa_user_admin TO atv_sec;
 
 -- COMPONENTS OF LABEL
---CONN sec_admin/secadmin;
+-- CONN sec_admin/secadmin;
+
 
 EXECUTE sa_components.create_level('MANAGE_SCORE',  10, 'NA', 'NOT_ALLOW');
 EXECUTE sa_components.create_level('MANAGE_SCORE',  20, 'V', 'VIEW');
