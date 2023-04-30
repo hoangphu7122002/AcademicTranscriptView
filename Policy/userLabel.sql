@@ -73,23 +73,30 @@ BEGIN
 END;
 
 BEGIN
+    sa_user_admin.drop_all_compartments
+        (policy_name => 'MANAGE_SCORE',
+        user_name => 'DN3');
+
     sa_user_admin.set_compartments
-    (policy_name => 'MANAGE_SCORE',
-    user_name => 'DN3',
-    read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
-    write_comps => '',
-    def_comps => 'HK223',
-    row_comps => '');
+        (policy_name => 'MANAGE_SCORE',
+        user_name => 'DN3',
+        read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+        write_comps => '',
+        def_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223'
+        );
 END;
 
 BEGIN
+    sa_user_admin.drop_all_groups
+        (policy_name => 'MANAGE_SCORE',
+        user_name => 'DN3');
+
     sa_user_admin.set_groups
-    (policy_name => 'MANAGE_SCORE',
-    user_name => 'DN3',
-    read_groups => 'CSE',
-    write_groups => '',
-    def_groups => 'CSE',
-    row_groups => '');
+        (policy_name => 'MANAGE_SCORE',
+        user_name => 'DN3',
+        read_groups => 'CSE',
+        write_groups => '',
+        def_groups => 'CSE');
 END;
 
 --------------------------------
