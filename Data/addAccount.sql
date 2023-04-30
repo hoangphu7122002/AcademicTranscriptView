@@ -19,7 +19,10 @@ GRANT connect, create user, drop user, create role, drop any role
 --TO sec_admin IDENTIFIED BY secadmin;
 
 grant connect, create procedure to sec_admin identified by secadmin;
-grant all privileges on atv.course_score to sec_admin;
+grant select, update, delete on atv.course_score to sec_admin;
+grant select, update, delete on atv.course to sec_admin;
+grant select, update, delete on atv.subject to sec_admin;
+grant select, update, delete on atv.student to sec_admin;
 
 CREATE ROLE student; -- 60
 GRANT connect, create session TO student;
@@ -38,9 +41,11 @@ GRANT connect, create session TO form_teacher;
 
 CREATE ROLE head_dept; -- 6
 GRANT connect, create session TO head_dept;
+grant select on course_score to head_dept;
 
 CREATE ROLE dean; -- 3
 GRANT connect, create session TO dean;
+grant select on course_score to dean;
 
 CREATE USER emp_pdt IDENTIFIED BY p123; -- 1
 GRANT connect, create session TO emp_pdt;

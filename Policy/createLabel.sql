@@ -1,4 +1,4 @@
-CONN sec_admin/secadmin;
+--CONN sec_admin/secadmin;
 EXECUTE sa_label_admin.create_label('MANAGE_SCORE',2010101,'V:HK201:PPL,CLS01');
 EXECUTE sa_label_admin.create_label('MANAGE_SCORE',2010102,'V:HK201:PPL,CLS02');
 EXECUTE sa_label_admin.create_label('MANAGE_SCORE',2010103,'V:HK201:PPL,CLS03');

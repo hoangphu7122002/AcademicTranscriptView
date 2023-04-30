@@ -1,4 +1,5 @@
-CONN sec_admin/secadmin;
+--CONN sec_admin/secadmin;
+
 
 CREATE OR REPLACE FUNCTION GET_ID_CLS(
     CLASS_ID IN INT
@@ -12,11 +13,11 @@ BEGIN
         RETURN 'CLS' || TO_CHAR(CLASS_ID);
     END IF;
 END;
-
-SET SERVEROUTPUT ON;
-BEGIN
-    dbms_output.put_line(GET_ID_CLS(10));
-END;
+/
+--SET SERVEROUTPUT ON;
+--BEGIN
+--    dbms_output.put_line(GET_ID_CLS(10));
+--END;
 
 CREATE OR REPLACE PROCEDURE ASSIGN_DATA_LABEL (
     courseId IN INT,
@@ -42,38 +43,39 @@ BEGIN
     WHERE id = studentId;
     
     label1 := 'V:'|| semesterCol ||':'|| shortnameCol ||','|| GET_ID_CLS(class_ele);
---    dbms_output.put_line(label1);    
+    dbms_output.put_line(to_char(studentId) || ': ' || label1);    
     UPDATE atv.course_score SET label_tag = char_to_label('MANAGE_SCORE',label1) WHERE course_id=courseId and student_id=studentId;
 END;
+/
 
-CREATE OR REPLACE PROCEDURE ASSIGN_ALL_DATA
-IS
-    Type idList IS TABLE OF atv.course_score%ROWTYPE;
-    id_data idList := idList();
-BEGIN
-    SELECT * BULK COLLECT INTO id_data FROM atv.course_score;
-    FOR i in (SELECT course_id,student_id FROM TABLE(id_data)) LOOP
-        ASSIGN_DATA_LABEL(i.course_id,i.student_id);
-    END LOOP;
-END;
+--CREATE OR REPLACE PROCEDURE ASSIGN_ALL_DATA
+--IS
+--    Type idList IS TABLE OF atv.course_score%ROWTYPE;
+--    id_data idList := idList();
+--BEGIN
+--    SELECT * BULK COLLECT INTO id_data FROM atv.course_score;
+--    FOR i in (SELECT course_id,student_id FROM TABLE(id_data)) LOOP
+--        ASSIGN_DATA_LABEL(i.course_id,i.student_id);
+--    END LOOP;
+--END;
 
-CREATE OR REPLACE FUNCTION avg_score(GROUP BY
-    student_id INT,
-)
-RETURN REAL
-IS
-    tu_sum REAL := 0;
-    mau_sum REAL := 0;
-BEGIN
-    SELECT cs.score, s.credits INTO res_table
-    FROM atv.course_score cs, atv.course c, atv.subject s
-    WHERE cs.student_id = student_id and c.id = cs.course_id and s.id = c.subject_id
-    FOR rec in (select score, credits from res_table) LOOP 
-        tu_sum := tu_sum + rec.score * rec.credits
-        mau_sum := mau_sum + rec.credits
-    END LOOP;
-    
-    tu_sum := tu_sum / mau_sum;
-    RETURN tu_sum;
-END;
+--CREATE OR REPLACE FUNCTION avg_score(
+--    GROUP BY student_id INT,
+--)
+--RETURN REAL
+--IS
+--    tu_sum REAL := 0;
+--    mau_sum REAL := 0;
+--BEGIN
+--    SELECT cs.score, s.credits INTO res_table
+--    FROM atv.course_score cs, atv.course c, atv.subject s
+--    WHERE cs.student_id = student_id and c.id = cs.course_id and s.id = c.subject_id
+--    FOR rec in (select score, credits from res_table) LOOP 
+--        tu_sum := tu_sum + rec.score * rec.credits
+--        mau_sum := mau_sum + rec.credits
+--    END LOOP;
+--    
+--    tu_sum := tu_sum / mau_sum;
+--    RETURN tu_sum;
+--END;
     

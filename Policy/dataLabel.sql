@@ -1,5 +1,5 @@
 -- APPLY POLICY
-CONN sec_admin/secadmin;
+--CONN sec_admin/secadmin;
 
 BEGIN
 sa_policy_admin.apply_table_policy
@@ -198,6 +198,7 @@ BEGIN
     ASSIGN_DATA_LABEL(45,60);
     COMMIT;
 END;
+/
 
 -- AUTO ASSIGN WITH LOOP
 -- declare 

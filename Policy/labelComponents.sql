@@ -1,5 +1,5 @@
 
-CONN lbacsys/lbacsys;
+--CONN lbacsys/lbacsys;
 
 BEGIN
     SA_SYSDBA.CREATE_POLICY (
@@ -19,7 +19,7 @@ GRANT MANAGE_SCORE_DBA TO atv_sec; -- may have many policies here
 GRANT execute ON sa_user_admin TO atv_sec;
 
 -- COMPONENTS OF LABEL
-CONN sec_admin/secadmin;
+--CONN sec_admin/secadmin;
 
 EXECUTE sa_components.create_level('MANAGE_SCORE',  10, 'NA', 'NOT_ALLOW');
 EXECUTE sa_components.create_level('MANAGE_SCORE',  20, 'V', 'VIEW');

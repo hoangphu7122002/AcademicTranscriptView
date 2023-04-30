@@ -1,5 +1,5 @@
 --------------------------------
-CONN atv_sec/atvsec;
+--CONN atv_sec/atvsec;
 BEGIN
     sa_user_admin.set_levels
     (policy_name => 'MANAGE_SCORE',
@@ -9,7 +9,7 @@ BEGIN
     def_level => 'V',
     row_level => 'V');
 END;
-
+/
 BEGIN
     sa_user_admin.set_compartments
     (policy_name => 'MANAGE_SCORE',
@@ -17,9 +17,9 @@ BEGIN
     read_comps => 'HK223',
     write_comps => '',
     def_comps => 'HK223',
-    row_comps => 'SM');
+    row_comps => 'HK223');
 END;
-
+/
 BEGIN
     sa_user_admin.set_groups
     (policy_name => 'MANAGE_SCORE',
@@ -29,6 +29,7 @@ BEGIN
     def_groups => 'CLS10',
     row_groups => 'CLS10');
 END;
+/
 --------------------------------
 
 BEGIN
@@ -40,7 +41,7 @@ BEGIN
     def_level => 'V',
     row_level => 'V');
 END;
-
+/
 BEGIN
     sa_user_admin.set_compartments
     (policy_name => 'MANAGE_SCORE',
@@ -50,7 +51,7 @@ BEGIN
     def_comps => 'HK223',
     row_comps => '');
 END;
-
+/
 BEGIN
     sa_user_admin.set_groups
     (policy_name => 'MANAGE_SCORE',
@@ -60,7 +61,7 @@ BEGIN
     def_groups => 'CS',
     row_groups => '');
 END;
-
+/
 --------------------------------
 BEGIN
     sa_user_admin.set_levels
@@ -71,17 +72,17 @@ BEGIN
     def_level => 'V',
     row_level => 'V');
 END;
-
+/
 BEGIN
     sa_user_admin.set_compartments
     (policy_name => 'MANAGE_SCORE',
     user_name => 'DN3',
     read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
     write_comps => '',
-    def_comps => 'HK223',
+    def_comps => 'HK222',
     row_comps => '');
 END;
-
+/
 BEGIN
     sa_user_admin.set_groups
     (policy_name => 'MANAGE_SCORE',
@@ -91,7 +92,39 @@ BEGIN
     def_groups => 'CSE',
     row_groups => '');
 END;
+/
+--------------------------------
 
+BEGIN
+    sa_user_admin.set_levels
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'DN1',
+    max_level => 'V',
+    min_level => 'NA',
+    def_level => 'V',
+    row_level => 'V');
+END;
+/
+BEGIN
+    sa_user_admin.set_compartments
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'DN1',
+    read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+    write_comps => '',
+    def_comps => 'HK223',
+    row_comps => '');
+END;
+/
+BEGIN
+    sa_user_admin.set_groups
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'DN1',
+    read_groups => 'AS',
+    write_groups => '',
+    def_groups => 'AS',
+    row_groups => '');
+END;
+/
 --------------------------------
 
 BEGIN
@@ -103,7 +136,7 @@ BEGIN
     def_level => 'V',
     row_level => 'V');
 END;
-
+/
 BEGIN
     sa_user_admin.set_compartments
     (policy_name => 'MANAGE_SCORE',
@@ -113,7 +146,7 @@ BEGIN
     def_comps => 'HK222,HK223',
     row_comps => 'HK222,HK223');
 END;
-
+/
 BEGIN
     sa_user_admin.set_groups
     (policy_name => 'MANAGE_SCORE',
@@ -123,7 +156,7 @@ BEGIN
     def_groups => 'PDT',
     row_groups => 'PDT');
 END;
-
+/
 --------------------------------
 
 BEGIN
@@ -135,7 +168,7 @@ BEGIN
     def_level => 'V',
     row_level => 'V');
 END;
-
+/
 BEGIN
     sa_user_admin.set_compartments
     (policy_name => 'MANAGE_SCORE',
@@ -145,7 +178,7 @@ BEGIN
     def_comps => 'HK223',
     row_comps => 'HK223');
 END;
-
+/
 BEGIN
     sa_user_admin.set_groups
     (policy_name => 'MANAGE_SCORE', 
@@ -155,7 +188,7 @@ BEGIN
     def_groups => 'IEF,PE,CL2,PPL',
     row_groups => 'IEF,PE,CL2,PPL');
 END;
-
+/
 --------------------------------
 -- CREATE OR REPLACE PROCEDURE upgrade_user_level(p_username IN VARCHAR(512))
 -- IS

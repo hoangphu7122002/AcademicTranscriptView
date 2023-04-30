@@ -1,6 +1,8 @@
--- grant all privileges to lbacsys identified by lbacsys
--- grant execute on dbms_rls to lbacsys
+-- grant all privileges to lbacsys identified by lbacsys;
+-- grant execute on dbms_rls to lbacsys;
+-- grant execute on SA_SYSDBA to lbacsys;
 -- grant exempt access policy to lbacsys;
+-- ALTER USER lbacsys IDENTIFIED BY lbacsys ACCOUNT UNLOCK;
 -- CONN lbacsys/lbacsys
 
 SET SERVEROUTPUT ON
