@@ -115,7 +115,6 @@ BEGIN
     END LOOP;
     RETURN 1;
 END;
---COMMIT;
 /
 
 
@@ -253,7 +252,7 @@ BEGIN
     policy_name     => 'STUDENT_EDIT_INFOR_ALLOW',
     policy_function => 'stdid_for_student_table',
     statement_types => 'UPDATE',
-    sec_relevant_cols => 'ethnic, religion, email');
+    sec_relevant_cols => 'address, religion, email');
 END;
 /
 
@@ -274,7 +273,7 @@ BEGIN
     policy_name     => 'STUDENT_EDIT_INFOR_NOT_ALLOW',
     policy_function => 'not_allow',
     statement_types => 'UPDATE',
-    sec_relevant_cols => 'id, first_name, last_name, birth_date, gender, home_town, address, class_id, parent_id');
+    sec_relevant_cols => 'id, first_name, last_name, birth_date, gender, home_town, ethnic, class_id, parent_id');
 END;
 /
 

@@ -4,5 +4,8 @@
 --set serveroutput on
 
 -- SELECT CHILDREN SCORE -> OK
-SELECT * FROM atv.course_score
+SELECT * FROM atv.course_score;
+
+update atv.course_score
+set final = 10 where id = 170;
     
