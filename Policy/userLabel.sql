@@ -1,5 +1,71 @@
---------------------------------
+
 CONN atv_sec/atvsec;
+
+-----------------------------------------------------------------------------
+BEGIN
+    sa_user_admin.set_levels
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'STUDENT',
+    max_level => 'V',
+    min_level => 'V',
+    def_level => 'V',
+    row_level => 'V');
+END;
+
+BEGIN
+    sa_user_admin.set_compartments
+        (policy_name => 'MANAGE_SCORE',
+        user_name => 'STUDENT',
+        read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+        write_comps => '',
+        def_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+        row_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+        );
+END;
+
+BEGIN
+    sa_user_admin.set_groups
+        (policy_name => 'MANAGE_SCORE',
+        user_name => 'STUDENT',
+        read_groups => 'BK',
+        write_groups => '',
+        def_groups => 'BK',
+        row_groups => 'BK');
+END;
+
+-----------------------------------------------------------------------------
+BEGIN
+    sa_user_admin.set_levels
+    (policy_name => 'MANAGE_SCORE',
+    user_name => 'PARENT',
+    max_level => 'V',
+    min_level => 'V',
+    def_level => 'V',
+    row_level => 'V');
+END;
+
+BEGIN
+    sa_user_admin.set_compartments
+        (policy_name => 'MANAGE_SCORE',
+        user_name => 'PARENT',
+        read_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+        write_comps => '',
+        def_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+        row_comps => 'HK201,HK202,HK203,HK211,HK212,HK213,HK221,HK222,HK223',
+        );
+END;
+
+BEGIN
+    sa_user_admin.set_groups
+        (policy_name => 'MANAGE_SCORE',
+        user_name => 'PARENT',
+        read_groups => 'BK',
+        write_groups => '',
+        def_groups => 'BK',
+        row_groups => 'BK');
+END;
+
+-----------------------------------------------------------------------------
 BEGIN
     sa_user_admin.set_levels
     (policy_name => 'MANAGE_SCORE',
