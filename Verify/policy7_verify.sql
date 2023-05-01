@@ -1,5 +1,7 @@
+------------------- PHONG DAO TAO'S EMPLOYEE -------------
 -- CONN emp_pdt/p123
 
+-- SELECT 80 rows of course_score
 select * from atv.course_score;
 
 -- This will okay
