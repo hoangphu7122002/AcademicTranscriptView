@@ -28,14 +28,21 @@ CREATE ROLE student; -- 60
 GRANT connect, create session TO student;
 grant select, update on student to student;
 grant select on course_score to student;
+grant select on course to student;
+grant select on subject to student;
 
 CREATE ROLE parent; -- 40
 GRANT connect, create session TO parent;
 grant select on course_score to parent;
+grant select on course to parent;
+grant select on subject to parent;
+grant select on student to parent;
 
 CREATE ROLE teacher; -- 18
 GRANT connect, create session TO teacher;
 grant select, update on course_score to teacher;
+grant insert on course_score to teacher;
+grant delete on course_score to teacher;
 grant select on course to teacher;
 
 CREATE ROLE form_teacher; -- 10

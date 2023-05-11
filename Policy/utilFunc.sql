@@ -57,7 +57,80 @@ BEGIN
 END;
 /
 
+-- Function for automatic asign data label for OLS Policy
+CREATE OR REPLACE FUNCTION sec_admin.gen_score_label(
+    courseId number,
+    studentId number
+)
+return lbacsys.lbac_label
+as
+    semesterCol VARCHAR(512);
+    shortnameCol VARCHAR(512);
+    class_ele INT;
+    label1 VARCHAR(512);
+begin
+    select semester into semesterCol from atv.course where id = courseId;
+--    dbms_output.put_line(semesterCol);
+    select short_name into shortnameCol from atv.subject where id in (
+        select subject_id 
+        from atv.course c
+        where c.id = courseId);
 
+    SELECT class_id
+    INTO class_ele
+    FROM atv.student
+    WHERE id = studentId;
+    
+    label1 := 'V:'|| semesterCol ||':'|| shortnameCol ||','|| GET_ID_CLS(class_ele);
+    return TO_LBAC_DATA_LABEL('MANAGE_SCORE',label1);
+end;
+/
+
+-- Grant this function for lbacsys
+GRANT execute ON sec_admin.gen_score_label TO lbacsys;
+
+
+
+----------------------------------- BEHIND THIS IS FOR TESTING ----------------------------------------------
+--BEGIN
+--SA_POLICY_ADMIN.APPLY_TABLE_POLICY (
+--    policy_name => 'ACCESS_LOCATIONS',
+--    schema_name => 'HR',
+--    table_name => 'EMPLOYEES',
+--    table_options =>
+--    'READ_CONTROL,WRITE_CONTROL,CHECK_CONTROL',
+--    label_function => 'sec_admin.gen_emp_label(:new.job_id, :new.salary)',
+--    PREDICATE => NULL);
+--END;
+--/
+--
+--CREATE OR REPLACE FUNCTION sec_admin.gen_score_label_test(
+--    courseId number,
+--    studentId number
+--)
+--return varchar2
+--as
+--    semesterCol VARCHAR(512);
+--    shortnameCol VARCHAR(512);
+--    class_ele INT;
+--    label1 VARCHAR(512);
+--begin
+--    select semester into semesterCol from atv.course where id = courseId;
+----    dbms_output.put_line(semesterCol);
+--    select short_name into shortnameCol from atv.subject where id in (
+--        select subject_id 
+--        from atv.course c
+--        where c.id = courseId);
+--
+--    SELECT class_id
+--    INTO class_ele
+--    FROM atv.student
+--    WHERE id = studentId;
+--    
+--    label1 := 'V:'|| semesterCol ||':'|| shortnameCol ||','|| GET_ID_CLS(class_ele);
+--    return char_to_label('MANAGE_SCORE',label1);
+--end;
+--/
 
 --select semester from atv.course where id = 12;
 --select short_name from atv.subject where id in (

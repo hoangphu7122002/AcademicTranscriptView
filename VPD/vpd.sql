@@ -199,6 +199,8 @@ BEGIN
     IF prefix = 'ST' THEN
         r_value := 'id = ' || substr(std_id, 4, 2);
         dbms_output.put_line('This is a student');
+    ELSIF prefix = 'PR' THEN
+        r_value := 'parent_id = ' || substr(std_id, 3, 2);
     ELSE
         r_value := '1=1';
         dbms_output.put_line('This is no one');
@@ -293,7 +295,7 @@ BEGIN
     object_name     => 'COURSE_SCORE',
     policy_name     => 'STUDENT_VIEW_SCORE',
     policy_function => 'stdid_for_course_score',
-    statement_types => 'SELECT');
+    statement_types => 'SELECT,INSERT,UPDATE');
 END;
 /
 ----

@@ -200,39 +200,32 @@ BEGIN
 END;
 /
 
--- AUTO ASSIGN WITH LOOP
--- declare 
---     col1_value atv.course_score.course_id%TYPE;
---     col2_value atv.course_score.student_id%TYPE;
-    
---     CURSOR my_cursor IS
---         SELECT course_id, student_id from atv.course_score;
--- begin
---     open my_cursor;
-    
---     loop
---         fetch my_cursor into col1_value, col2_value;
-        
---         exit when my_cursor%NOTFOUND;
-        
---         ASSIGN_DATA_LABEL(col1_value, col2_value);
---     end loop;
-    
---     close my_cursor;
--- end;        
 
--- RE-ACTIVATE POLICY
+-------------------------- RE-ACTIVATE POLICY -------------------------------------------
 BEGIN
     sa_policy_admin.remove_table_policy
         (policy_name => 'MANAGE_SCORE',
         schema_name => 'ATV',
         table_name => 'COURSE_SCORE');
 end;
-begin
-sa_policy_admin.apply_table_policy
-    (policy_name => 'MANAGE_SCORE',
+/
+
+--begin
+--sa_policy_admin.apply_table_policy
+--    (policy_name => 'MANAGE_SCORE',
+--    schema_name => 'ATV',
+--    table_name => 'COURSE_SCORE',
+--    table_options => 'READ_CONTROL,WRITE_CONTROL,CHECK_CONTROL');
+--END;
+--/
+
+BEGIN
+SA_POLICY_ADMIN.APPLY_TABLE_POLICY (
+    policy_name => 'MANAGE_SCORE',
     schema_name => 'ATV',
     table_name => 'COURSE_SCORE',
-    table_options => 'READ_CONTROL,WRITE_CONTROL,CHECK_CONTROL');
+    table_options => 'READ_CONTROL,WRITE_CONTROL,CHECK_CONTROL',
+    label_function => 'sec_admin.gen_score_label(:new.COURSE_ID, :new.STUDENT_ID)',
+    PREDICATE => NULL);
 END;
 /

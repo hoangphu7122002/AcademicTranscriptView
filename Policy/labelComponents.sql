@@ -1,4 +1,4 @@
-
+------------------------------- LBACSYS PHASE -----------------------------------------
 --CONN lbacsys/lbacsys;
 
 BEGIN
@@ -26,6 +26,11 @@ GRANT execute ON sa_policy_admin TO sec_admin;
 GRANT MANAGE_SCORE_DBA TO atv_sec; -- may have many policies here
 GRANT execute ON sa_user_admin TO atv_sec;
 
+-- Grant create assign datalabel to sec_admin
+GRANT execute ON to_lbac_data_label
+TO sec_admin WITH GRANT OPTION;
+---------------------------------------------------------------------------------------------
+--------------------------------------------- SEC_ADMIN PHASE -----------------------------------
 -- COMPONENTS OF LABEL
 -- CONN sec_admin/secadmin;
 
@@ -33,16 +38,6 @@ GRANT execute ON sa_user_admin TO atv_sec;
 EXECUTE sa_components.create_level('MANAGE_SCORE',  10, 'NA', 'NOT_ALLOW');
 EXECUTE sa_components.create_level('MANAGE_SCORE',  20, 'V', 'VIEW');
 EXECUTE sa_components.create_level('MANAGE_SCORE',  30, 'E',' EDIT');
-
--- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',10,'HK201','SEMESTER_1');
--- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',20,'HK202','SEMESTER_2');
--- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',30,'HK203','SEMESTER_3');
--- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',40,'HK211','SEMESTER_4');
--- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',50,'HK212','SEMESTER_5');
--- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',60,'HK213','SEMESTER_6');
--- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',70,'HK221','SEMESTER_7');
--- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',80,'HK222','SEMESTER_8');
--- EXECUTE sa_components.alter_compartment('MANAGE_SCORE',90,'HK223','SEMESTER_9');
 
 EXECUTE sa_components.create_compartment('MANAGE_SCORE',10,'HK201','SEMESTER_1');
 EXECUTE sa_components.create_compartment('MANAGE_SCORE',20,'HK202','SEMESTER_2');
